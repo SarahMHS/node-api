@@ -1,10 +1,14 @@
+require("dotenv").config();
 const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const sequelize = require('./src/db/sequelize')
+const express = require("express")
 const cors = require("cors");
+
 app.use(cors());
+app.use(express.json());
 const app = express()
 const port = 5000
 
@@ -29,4 +33,12 @@ app.use(({res}) => {
     res.status(404).json({message})
 })
 
-app.listen(port, () => console.log(`notre application Node et démarrée sur : http://localhost:${port}`))
+app.get("/", (req, res) => {
+  res.send("API Railway OK");
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Serveur lancé sur ${PORT}`);
+});
